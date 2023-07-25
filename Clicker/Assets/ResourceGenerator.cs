@@ -20,7 +20,8 @@ public class ResourceGenerator : MonoBehaviour
     int generatorUnits;
     //number of resources given per second
     float resourcePerSecond = 1;
-
+    //multiplier on the resources per second
+    float upgradeMultiplier = 1;
     float cost;
 
     float finalResourcePerSecond;
@@ -52,8 +53,14 @@ public class ResourceGenerator : MonoBehaviour
 
     public void CalculateResourcesPerSecond()
     {
-        finalResourcePerSecond = generatorUnits * resourcePerSecond;
+        finalResourcePerSecond = generatorUnits * resourcePerSecond * upgradeMultiplier;
         associatedResource.resourcesPerSecond = finalResourcePerSecond;
+    }
+
+    public void BuyUpgrade()
+    {
+        upgradeMultiplier += 1;
+        CalculateResourcesPerSecond();
     }
 
     public void UpdateCost()
