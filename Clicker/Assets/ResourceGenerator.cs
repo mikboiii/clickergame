@@ -33,6 +33,7 @@ public class ResourceGenerator : MonoBehaviour
         //cost formula = 1/2x^2 + 10
         cost = Mathf.Floor(10 + (0.5f * Mathf.Pow(generatorUnits, 2f)));
         associatedResource = GameObject.Find(resourceName).GetComponent<Resource>();
+        UpdateCost();
     }
 
     public void AddGeneratorUnit()
@@ -44,13 +45,19 @@ public class ResourceGenerator : MonoBehaviour
             generatorUnits += 1;
             CalculateResourcesPerSecond();
             cost = Mathf.Floor(10 + (0.5f * Mathf.Pow(generatorUnits, 2f)));
+            associatedResource.UpdateResourcePerSecond();
+            UpdateCost();
         }
-        costText.text = cost.ToString();
     }
 
     public void CalculateResourcesPerSecond()
     {
         finalResourcePerSecond = generatorUnits * resourcePerSecond;
         associatedResource.resourcesPerSecond = finalResourcePerSecond;
+    }
+
+    public void UpdateCost()
+    {
+        costText.text = "Cost: "+cost.ToString();
     }
 }

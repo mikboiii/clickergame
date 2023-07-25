@@ -18,6 +18,13 @@ public class Resource : MonoBehaviour
     public float storedResource;
     [SerializeField]
     public float resourcesPerSecond;
+    [SerializeField]
+    TextMeshProUGUI resourcePerSecondText;
+
+    private void Start()
+    {
+        UpdateResourcePerSecond();
+    }
     public void ResourceClick()
     {
         storedResource += baseClickIncrement * clickMultiplier;
@@ -30,5 +37,9 @@ public class Resource : MonoBehaviour
     {
         storedResource += resourcesPerSecond * Time.deltaTime;
         textUpdate();
+    }
+    public void UpdateResourcePerSecond()
+    {
+        resourcePerSecondText.text = "Resource per second: " + resourcesPerSecond;
     }
 }
