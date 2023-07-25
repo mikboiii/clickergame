@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class ResourceGenerator : MonoBehaviour
@@ -20,27 +21,31 @@ public class ResourceGenerator : MonoBehaviour
     //number of resources given per second
     float resourcePerSecond = 1;
 
-    float baseCost = 10;
-    float costMultiplier = 1.0f;
+    float cost;
 
     float finalResourcePerSecond;
+    [SerializeField]
+    TextMeshProUGUI costText;
     Button buyButton;
 
     private void Start()
     {
+        //cost formula = 1/2x^2 + 10
+        cost = Mathf.Floor(10 + (0.5f * Mathf.Pow(generatorUnits, 2f)));
         associatedResource = GameObject.Find(resourceName).GetComponent<Resource>();
     }
 
     public void AddGeneratorUnit()
     {
-        if (associatedResource.storedResource >= baseCost * costMultiplier)
+        if (associatedResource.storedResource >= cost)
         {
             Instantiate(minerPrefab, new Vector3(Random.Range(-9f, 0f), -0.5f, 0), Quaternion.identity);
-            associatedResource.storedResource -= baseCost * costMultiplier;
+            associatedResource.storedResource -= cost;
             generatorUnits += 1;
-            costMultiplier = 1.0f + (generatorUnits * 0.1f);
             CalculateResourcesPerSecond();
+            cost = Mathf.Floor(10 + (0.5f * Mathf.Pow(generatorUnits, 2f)));
         }
+        costText.text = cost.ToString();
     }
 
     public void CalculateResourcesPerSecond()
