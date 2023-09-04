@@ -8,8 +8,6 @@ public class Resource : MonoBehaviour
     public TMP_Text resourceText;
     public string resourceName;
 
-    public static Resource instance;
-
     [SerializeField]
     int baseClickIncrement;
     [SerializeField]
@@ -24,6 +22,7 @@ public class Resource : MonoBehaviour
     private void Start()
     {
         UpdateResourcePerSecond();
+
     }
     public void ResourceClick()
     {
