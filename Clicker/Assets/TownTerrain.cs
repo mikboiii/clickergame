@@ -39,7 +39,7 @@ public class TownTerrain : MonoBehaviour
             startPoint += Random.Range(-1, 2);
             if (startPoint < 0)
                 startPoint += 1;
-            else if (startPoint > 16)
+            else if (startPoint > xWidth)
                 startPoint -= 1;
         }
     }
