@@ -1162,8 +1162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f1c92640c56ca4289b43fc1a73b6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xWidth: 16
-  yWidth: 16
+  xWidth: 32
+  yWidth: 32
   tileArray:
   - {fileID: 11400000, guid: 5a6fb6f98d9c3b74a9e9447ef017a260, type: 2}
   - {fileID: 11400000, guid: 7d4fa1d2656c8ff46bd33537015ceaeb, type: 2}

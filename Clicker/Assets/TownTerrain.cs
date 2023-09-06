@@ -11,11 +11,19 @@ public class TownTerrain : MonoBehaviour
     Grid tileGrid;
     [SerializeField]
     Tilemap groundLayer;
+    Node[,] logicMap;
+    int buildingIndex = 0;
+    Vector2[] buildingPositions;
     
     // Start is called before the first frame update
     void Start()
     {
+        logicMap = new Node[xWidth, yWidth];
+        buildingPositions = new Vector2[2];
+        buildingIndex = 0;
         GenerateGrid();
+
+
     }
 
     void GenerateGrid()
@@ -26,9 +34,14 @@ public class TownTerrain : MonoBehaviour
             for(int j = 0; j < yWidth; j++)
             {
                 groundLayer.SetTile(new Vector3Int(i, j, 1),tileArray[0]);
+                logicMap[i, j] = new Node(i, j, false, 1);
             }
         }
         GenerateRiver();
+        GenerateBuilding();
+        buildingIndex += 1;
+        GenerateBuilding();
+        GeneratePath();
     }
     void GenerateRiver()
     {
@@ -43,7 +56,35 @@ public class TownTerrain : MonoBehaviour
                 startPoint -= 1;
         }
     }
-
+    void GenerateBuilding()
+    {
+        bool started = true;
+        while (started == true)
+        {
+            Vector3Int randomPos = new Vector3Int(Random.Range(0, xWidth + 1), Random.Range(0, yWidth + 1), 1);
+            if(groundLayer.GetTile(randomPos) == tileArray[0])
+            {
+                started = false;
+                groundLayer.SetTile(randomPos, tileArray[3]);
+                logicMap[randomPos.x, randomPos.y] = new Node(randomPos.x, randomPos.y, false, 10);
+                buildingPositions[buildingIndex] = new Vector2(randomPos.x, randomPos.y);
+            }
+            else
+            {
+                continue;
+            }
+        }
+        
+    }
+    void GeneratePath()
+    {
+        RoadPathfinding pathfind = new RoadPathfinding();
+        List<Node> path = pathfind.FindPath(logicMap, buildingPositions[0], buildingPositions[1]);
+        for(int i = 1; i < path.Count-1; i++)
+        {
+            groundLayer.SetTile(new Vector3Int(path[i].xPos, path[i].yPos, 1),tileArray[2]);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
