@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Sprites;
 using UnityEngine.Tilemaps;
 
 public class TownTerrain : MonoBehaviour
@@ -14,6 +15,8 @@ public class TownTerrain : MonoBehaviour
     Node[,] logicMap;
     int buildingIndex = 0;
     Vector2[] buildingPositions;
+    public GameObject building;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,7 @@ public class TownTerrain : MonoBehaviour
         logicMap = new Node[xWidth, yWidth];
         buildingPositions = new Vector2[2];
         buildingIndex = 0;
+        tileGrid = GetComponent<Grid>();
         GenerateGrid();
 
 
@@ -68,6 +72,7 @@ public class TownTerrain : MonoBehaviour
                 groundLayer.SetTile(randomPos, tileArray[3]);
                 logicMap[randomPos.x, randomPos.y] = new Node(randomPos.x, randomPos.y, false, 10);
                 buildingPositions[buildingIndex] = new Vector2(randomPos.x, randomPos.y);
+                Instantiate(building, tileGrid.CellToLocal(new Vector3Int(randomPos.x, randomPos.y, -2)) + new Vector3(-0.525f,0.375f,-2), Quaternion.identity);
             }
             else
             {

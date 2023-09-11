@@ -1183,3 +1183,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 10507e51dfd60764cb6a31fc7f5542a8, type: 2}
   - {fileID: 11400000, guid: eac67a860a873aa41b20d7157941354b, type: 2}
   groundLayer: {fileID: 25800527}
+  building: {fileID: 851631709126989962, guid: 8d11310678c1bbc4eae5c361b2349bc6, type: 3}
