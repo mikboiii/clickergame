@@ -72,7 +72,8 @@ public class TownTerrain : MonoBehaviour
                 groundLayer.SetTile(randomPos, tileArray[3]);
                 logicMap[randomPos.x, randomPos.y] = new Node(randomPos.x, randomPos.y, false, 10);
                 buildingPositions[buildingIndex] = new Vector2(randomPos.x, randomPos.y);
-                Instantiate(building, tileGrid.CellToLocal(new Vector3Int(randomPos.x, randomPos.y, -2)) + new Vector3(-0.525f,0.375f,-2), Quaternion.identity);
+                //Instantiate(building, tileGrid.CellToLocal(new Vector3Int(randomPos.x, randomPos.y, -2)) + new Vector3(-0.525f,0.375f,-2), Quaternion.identity);
+                Instantiate(building, tileGrid.LocalToWorld(tileGrid.CellToLocal(new Vector3Int(randomPos.x, randomPos.y, 1)))+new Vector3(0,0.5f,0), Quaternion.identity);
             }
             else
             {
