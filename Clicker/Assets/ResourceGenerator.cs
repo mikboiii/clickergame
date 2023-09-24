@@ -48,7 +48,7 @@ public class ResourceGenerator : MonoBehaviour
     {
         if (associatedResource.storedResource >= cost)
         {
-            Instantiate(minerPrefab, new Vector3(Random.Range(-9f, 0f), -0.5f, 0), Quaternion.identity);
+            //Instantiate(minerPrefab, new Vector3(Random.Range(-9f, 0f), -0.5f, 0), Quaternion.identity);
             associatedResource.storedResource -= cost;
             generatorUnits += 1;
             CalculateResourcesPerSecond();
